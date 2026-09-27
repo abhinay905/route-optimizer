@@ -61,6 +61,7 @@ NEVER:
 - Never represent a closed road as `Infinity` — skip the edge in `buildGraph`.
 - Never change network/scenario numbers in `data/` — tests and the demo script depend on them.
 - Never start Step 9 before Steps 1–8 are committed.
+- Never add Co-authored-by or any AI attribution trailer to commit messages.
 
 ## Triggers
 
