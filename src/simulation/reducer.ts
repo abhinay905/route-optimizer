@@ -1,9 +1,11 @@
 import { LOCATIONS, ROADS } from "../data/network";
+import { SCENARIOS } from "../data/scenarios";
 import { buildGraph, currentWeights } from "../domain/graph/buildGraph";
 import { dijkstra } from "../domain/routing/dijkstra";
+import { explainRouteChange } from "../domain/routing/explainRouteChange";
 import { findBlockingClosures } from "../domain/routing/reachability";
 import type { Action, SimulationState } from "./state";
-import { initialState } from "./state";
+import { defaultConditions, initialState } from "./state";
 
 function recompute(state: SimulationState): SimulationState {
   const weightsAtRoute = currentWeights(ROADS, state.conditions);
@@ -21,6 +23,9 @@ function recompute(state: SimulationState): SimulationState {
 
   const graph = buildGraph(LOCATIONS, ROADS, state.conditions);
   const route = dijkstra(graph, state.source, state.destination);
+  const lastChange = state.route
+    ? explainRouteChange(state.route, route, state.weightsAtRoute, weightsAtRoute)
+    : null;
   const blockingClosures =
     route.status === "unreachable"
       ? findBlockingClosures(LOCATIONS, ROADS, state.conditions, state.source, state.destination)
@@ -30,7 +35,7 @@ function recompute(state: SimulationState): SimulationState {
     ...state,
     route,
     weightsAtRoute,
-    lastChange: null, // wired up in Step 7 (explainRouteChange)
+    lastChange,
     blockingClosures,
     stepper: null, // conditions changed -> any in-flight stepper is stale
   };
@@ -50,9 +55,18 @@ export function simulationReducer(state: SimulationState, action: Action): Simul
         conditions: { ...state.conditions, [action.roadId]: action.condition },
         activeScenarioId: null,
       });
-    case "loadScenario":
-      // implemented in Step 7 alongside data/scenarios.ts
-      return state;
+    case "loadScenario": {
+      const scenario = SCENARIOS.find((candidate) => candidate.id === action.scenarioId);
+      if (!scenario) return state;
+      const next = recompute({
+        ...state,
+        conditions: { ...defaultConditions(), ...scenario.overrides },
+        source: scenario.source,
+        destination: scenario.destination,
+        activeScenarioId: scenario.id,
+      });
+      return { ...next, lastChange: null }; // loading a preset is not a "route change"
+    }
     case "reset":
       return initialState;
     case "startStepper":

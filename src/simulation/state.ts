@@ -1,15 +1,8 @@
 import type { Conditions, LocationId, RoadCondition, RoadId } from "../domain/graph/types";
 import type { DijkstraStep, RouteResult } from "../domain/routing/dijkstra";
+import type { RouteChange } from "../domain/routing/explainRouteChange";
 import { currentWeights } from "../domain/graph/buildGraph";
 import { ROADS } from "../data/network";
-
-// Canonical home is domain/routing/explainRouteChange.ts (built in Step 7); declared here
-// because SimulationState needs the shape before that module exists.
-export interface RouteChange {
-  before: { path: LocationId[]; totalMinutesNow: number | null };
-  after: RouteResult;
-  causes: { roadId: RoadId; oldMinutes: number | null; newMinutes: number | null }[];
-}
 
 export interface SimulationState {
   conditions: Conditions;
@@ -36,7 +29,7 @@ export type Action =
   | { type: "stepPrev" }
   | { type: "exitStepper" };
 
-function defaultConditions(): Conditions {
+export function defaultConditions(): Conditions {
   const conditions: Conditions = {};
   for (const road of ROADS) {
     conditions[road.id] = { kind: "traffic", level: "low" };

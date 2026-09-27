@@ -77,11 +77,23 @@
   gap: 12px;
 }
 
-.condition-buttons {
+.condition-buttons,
+.presets {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   margin-top: 8px;
+}
+
+.preset-active {
+  outline: 2px solid #2563eb;
+}
+
+.explainer-panel {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 15px;
 }
 
 .route-panel {

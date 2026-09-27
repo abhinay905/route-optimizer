@@ -1,4 +1,5 @@
 import { LOCATIONS } from "../data/network";
+import { SCENARIOS } from "../data/scenarios";
 import type { Action, SimulationState } from "../simulation/state";
 
 interface ControlPanelProps {
@@ -41,6 +42,18 @@ export function ControlPanel({ state, dispatch }: ControlPanelProps) {
           ))}
         </select>
       </label>
+      <div className="presets">
+        {SCENARIOS.map((scenario) => (
+          <button
+            key={scenario.id}
+            type="button"
+            className={state.activeScenarioId === scenario.id ? "preset-active" : undefined}
+            onClick={() => dispatch({ type: "loadScenario", scenarioId: scenario.id })}
+          >
+            {scenario.name}
+          </button>
+        ))}
+      </div>
       <button type="button" onClick={() => dispatch({ type: "reset" })}>
         Reset
       </button>

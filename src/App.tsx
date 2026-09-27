@@ -3,6 +3,7 @@ import { simulationReducer } from "./simulation/reducer";
 import { initialState } from "./simulation/state";
 import { CityMap } from "./ui/CityMap";
 import { ControlPanel } from "./ui/ControlPanel";
+import { ExplainerPanel } from "./ui/ExplainerPanel";
 import { RoadConditionPicker } from "./ui/RoadConditionPicker";
 import { RoutePanel } from "./ui/RoutePanel";
 import "./ui/styles.css";
@@ -17,6 +18,7 @@ function App() {
         <ControlPanel state={state} dispatch={dispatch} />
         <RoadConditionPicker state={state} dispatch={dispatch} />
         <RoutePanel state={state} />
+        <ExplainerPanel state={state} />
       </aside>
     </div>
   );
