@@ -3,8 +3,8 @@
 ## Session State  (agent: update after every step)
 ```
 SESSION_STATUS:  ACTIVE            # ACTIVE | BLOCKED | PAUSED | DONE
-CURRENT_STEP:    6 — ui (CityMap, RoadConditionPicker, ControlPanel, RoutePanel)
-LAST_COMPLETED:  Step 5 — simulation/state + reducer
+CURRENT_STEP:    7 — data/scenarios.ts + presets, explainRouteChange + ExplainerPanel
+LAST_COMPLETED:  Step 6 — ui (CityMap, RoadConditionPicker, ControlPanel, RoutePanel)
 PAUSED_AT:       —
 ```
 

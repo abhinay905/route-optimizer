@@ -1,5 +1,6 @@
 import type { Conditions, LocationId, RoadCondition, RoadId } from "../domain/graph/types";
 import type { DijkstraStep, RouteResult } from "../domain/routing/dijkstra";
+import { currentWeights } from "../domain/graph/buildGraph";
 import { ROADS } from "../data/network";
 
 // Canonical home is domain/routing/explainRouteChange.ts (built in Step 7); declared here
@@ -43,13 +44,15 @@ function defaultConditions(): Conditions {
   return conditions;
 }
 
+const initialConditions = defaultConditions();
+
 export const initialState: SimulationState = {
-  conditions: defaultConditions(),
+  conditions: initialConditions,
   source: null,
   destination: null,
   selectedRoadId: null,
   route: null,
-  weightsAtRoute: {},
+  weightsAtRoute: currentWeights(ROADS, initialConditions),
   lastChange: null,
   blockingClosures: [],
   stepper: null,

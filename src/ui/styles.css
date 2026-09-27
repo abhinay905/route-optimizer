@@ -1,0 +1,97 @@
+.app {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  align-items: flex-start;
+}
+
+.city-map {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 1000px;
+  height: auto;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.road-hit-area {
+  cursor: pointer;
+}
+
+.road-line {
+  cursor: pointer;
+}
+
+.road-selected {
+  stroke-opacity: 0.85;
+  filter: drop-shadow(0 0 2px #111827);
+}
+
+.road-label {
+  font-size: 16px;
+  fill: #111827;
+}
+
+.location {
+  cursor: pointer;
+}
+
+.location-dot {
+  fill: #f3f4f6;
+  stroke: #111827;
+  stroke-width: 2;
+}
+
+.location-source {
+  fill: #2563eb;
+}
+
+.location-destination {
+  fill: #16a34a;
+}
+
+.location-label {
+  font-size: 16px;
+  fill: #111827;
+}
+
+.panels {
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.control-panel,
+.road-condition-picker,
+.route-panel {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.condition-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.route-panel {
+  font-size: 18px;
+}
+
+.route-path {
+  font-weight: 600;
+}
+
+.hint {
+  color: #6b7280;
+}
