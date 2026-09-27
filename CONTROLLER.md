@@ -2,11 +2,14 @@
 
 ## Session State  (agent: update after every step)
 ```
-SESSION_STATUS:  ACTIVE            # ACTIVE | BLOCKED | PAUSED | DONE
-CURRENT_STEP:    9 — (optional) Live mode: seeded PRNG + timer + randomTrafficTick
-LAST_COMPLETED:  Step 8 — Stepper actions + StepperPanel + map step highlights (T1-T3 complete)
+SESSION_STATUS:  DONE              # ACTIVE | BLOCKED | PAUSED | DONE
+CURRENT_STEP:    10 — Polish (complete)
+LAST_COMPLETED:  Step 10 — Polish (legend, projector-size labels, npm run build passes)
 PAUSED_AT:       —
 ```
+Step 9 (optional T4 live mode) was skipped by decision, not blocked: user's kickoff message said
+"no extra features" with a tomorrow deadline, and DOC3 §3.0's own hard rule says stop coding once
+T1-T3 are committed and rehearsed, so more polish/rehearsal time beats an unrehearsed bonus tier.
 
 ## Load Order
 1. Read this file fully.

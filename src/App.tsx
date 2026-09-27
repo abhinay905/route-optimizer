@@ -4,6 +4,7 @@ import { initialState } from "./simulation/state";
 import { CityMap } from "./ui/CityMap";
 import { ControlPanel } from "./ui/ControlPanel";
 import { ExplainerPanel } from "./ui/ExplainerPanel";
+import { Legend } from "./ui/Legend";
 import { RoadConditionPicker } from "./ui/RoadConditionPicker";
 import { RoutePanel } from "./ui/RoutePanel";
 import { StepperPanel } from "./ui/StepperPanel";
@@ -14,7 +15,10 @@ function App() {
 
   return (
     <div className="app">
-      <CityMap state={state} dispatch={dispatch} />
+      <main className="map-area">
+        <CityMap state={state} dispatch={dispatch} />
+        <Legend />
+      </main>
       <aside className="panels">
         <ControlPanel state={state} dispatch={dispatch} />
         <RoadConditionPicker state={state} dispatch={dispatch} />

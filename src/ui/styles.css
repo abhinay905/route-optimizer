@@ -1,14 +1,23 @@
 .app {
   display: flex;
-  gap: 24px;
-  padding: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
   align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.map-area {
+  flex: 3 1 640px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .city-map {
-  flex: 1 1 auto;
-  min-width: 0;
-  max-width: 1000px;
+  width: 100%;
+  max-width: 900px;
   height: auto;
   border: 1px solid #d1d5db;
   border-radius: 8px;
@@ -79,7 +88,10 @@
 }
 
 .panels {
-  flex: 0 0 320px;
+  flex: 1 1 300px;
+  max-width: 360px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -155,4 +167,60 @@
 
 .hint {
   color: #6b7280;
+}
+
+.legend {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 15px;
+}
+
+.legend-conditions,
+.legend-secondary {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+
+.legend-conditions li,
+.legend-secondary li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-swatch {
+  display: inline-block;
+  width: 30px;
+  height: 6px;
+  border-radius: 3px;
+}
+
+.legend-route {
+  background: #2563eb;
+}
+
+.legend-blocking {
+  background: #dc2626;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.legend-visited {
+  background: #fde68a;
+  border: 2px solid #111827;
+}
+
+.legend-current {
+  background: #f3f4f6;
+  border: 3px solid #2563eb;
 }
