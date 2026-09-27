@@ -3,8 +3,8 @@
 ## Session State  (agent: update after every step)
 ```
 SESSION_STATUS:  ACTIVE            # ACTIVE | BLOCKED | PAUSED | DONE
-CURRENT_STEP:    5 — simulation/state + reducer
-LAST_COMPLETED:  Step 4 — domain/routing/dijkstra + reachability
+CURRENT_STEP:    6 — ui (CityMap, RoadConditionPicker, ControlPanel, RoutePanel)
+LAST_COMPLETED:  Step 5 — simulation/state + reducer
 PAUSED_AT:       —
 ```
 
