@@ -3,8 +3,8 @@
 ## Session State  (agent: update after every step)
 ```
 SESSION_STATUS:  ACTIVE            # ACTIVE | BLOCKED | PAUSED | DONE
-CURRENT_STEP:    4 — domain/routing/dijkstra + reachability
-LAST_COMPLETED:  Step 3 — domain/routing/minHeap
+CURRENT_STEP:    5 — simulation/state + reducer
+LAST_COMPLETED:  Step 4 — domain/routing/dijkstra + reachability
 PAUSED_AT:       —
 ```
 
