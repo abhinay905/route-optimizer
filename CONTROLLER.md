@@ -2,10 +2,10 @@
 
 ## Session State  (agent: update after every step)
 ```
-SESSION_STATUS:  ACTIVE            # ACTIVE | BLOCKED | PAUSED | DONE
-CURRENT_STEP:    1 — Scaffold
-LAST_COMPLETED:  none
-PAUSED_AT:       —
+SESSION_STATUS:  BLOCKED           # ACTIVE | BLOCKED | PAUSED | DONE
+CURRENT_STEP:    2 — domain/graph + data/network
+LAST_COMPLETED:  Step 1 — Scaffold
+PAUSED_AT:       docs/DOC3.md (and the whole docs/ folder) is missing from the repo — cannot start Step 2 without it
 ```
 
 ## Load Order
