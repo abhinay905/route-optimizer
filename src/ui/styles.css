@@ -1,3 +1,28 @@
+:root {
+  --ground: #EDF1F4;
+  --park: #DCE9DA;
+  --panel: #FAFBFC;
+  --border: #E2E6EA;
+  --ink: #2E3440;
+  --ink-soft: #6B7280;
+  --road-casing: #FFFFFF;
+  --low: #8CC9A6;
+  --medium: #EFC66B;
+  --high: #EE9F74;
+  --severe: #D46A73;
+  --accident: #6E6A86;
+  --closed: #B8BEC6;
+  --route: #4F7CAC;
+  --route-halo: #BFD4EA;
+  --source-pin: #5FA98A;
+  --dest-pin: #D26F6F;
+  --accent: #4F7CAC;
+  --accent-hover: #436C98;
+  --step-visited: #E3EDF7;
+  --step-current: #FCE8C8;
+  --panel-shadow: 0 2px 8px rgba(46, 52, 64, 0.08);
+}
+
 .app {
   display: flex;
   flex-wrap: wrap;
@@ -19,9 +44,9 @@
   width: 100%;
   max-width: 900px;
   height: auto;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--ground);
 }
 
 .road-hit-area {
@@ -34,12 +59,30 @@
 
 .road-selected {
   stroke-opacity: 0.85;
-  filter: drop-shadow(0 0 2px #111827);
+  filter: drop-shadow(0 0 2px var(--ink));
+}
+
+.road-badge {
+  fill: var(--road-casing);
+  stroke: var(--border);
+  stroke-width: 1;
 }
 
 .road-label {
   font-size: 16px;
-  fill: #111827;
+  font-weight: 600;
+  fill: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.route-draw {
+  animation: route-draw 500ms ease-out forwards;
+}
+
+@keyframes route-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .location {
@@ -47,25 +90,34 @@
 }
 
 .location-dot {
-  fill: #f3f4f6;
-  stroke: #111827;
+  fill: var(--panel);
+  stroke: var(--ink);
   stroke-width: 2;
 }
 
 .location-source {
-  fill: #2563eb;
+  fill: var(--source-pin);
+  stroke: var(--source-pin);
 }
 
 .location-destination {
-  fill: #16a34a;
+  fill: var(--dest-pin);
+  stroke: var(--dest-pin);
+}
+
+.location-glyph {
+  font-size: 15px;
+  font-weight: 700;
+  fill: #ffffff;
+  pointer-events: none;
 }
 
 .location-visited {
-  fill: #fde68a;
+  fill: var(--step-visited);
 }
 
 .location-current {
-  stroke: #2563eb;
+  stroke: var(--route);
   stroke-width: 4;
 }
 
@@ -82,9 +134,16 @@
   }
 }
 
+.location-label-pill {
+  fill: #ffffff;
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
 .location-label {
   font-size: 16px;
-  fill: #111827;
+  font-weight: 600;
+  fill: var(--ink);
 }
 
 .panels {
@@ -99,16 +158,62 @@
 
 .control-panel,
 .road-condition-picker,
-.route-panel {
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  padding: 12px;
+.route-panel,
+.explainer-panel,
+.stepper-panel,
+.legend {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: var(--panel-shadow);
+  color: var(--ink);
 }
 
 .control-panel {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.control-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.control-panel select {
+  font: inherit;
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+
+button {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease, background 120ms ease;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .condition-buttons,
@@ -120,14 +225,19 @@
 }
 
 .preset-active {
-  outline: 2px solid #2563eb;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.preset-active:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: #ffffff;
 }
 
 .explainer-panel,
 .stepper-panel {
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  padding: 12px;
   font-size: 15px;
 }
 
@@ -135,6 +245,11 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.stepper-controls span {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
 }
 
 .dist-table {
@@ -148,13 +263,18 @@
 .dist-table td {
   text-align: left;
   padding: 2px 8px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border);
+}
+
+.dist-table td {
+  font-variant-numeric: tabular-nums;
 }
 
 .queue-list {
   margin: 8px 0 0;
   padding-left: 18px;
   font-size: 14px;
+  font-variant-numeric: tabular-nums;
 }
 
 .route-panel {
@@ -165,15 +285,19 @@
   font-weight: 600;
 }
 
-.hint {
-  color: #6b7280;
+.route-minutes {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--route);
 }
 
-.legend {
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  padding: 12px;
-  font-size: 15px;
+.explainer-old,
+.explainer-new {
+  font-variant-numeric: tabular-nums;
+}
+
+.hint {
+  color: var(--ink-soft);
 }
 
 .legend-conditions,
@@ -191,6 +315,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  color: var(--ink);
 }
 
 .legend-swatch {
@@ -200,12 +325,8 @@
   border-radius: 3px;
 }
 
-.legend-route {
-  background: #2563eb;
-}
-
 .legend-blocking {
-  background: #dc2626;
+  background: var(--severe);
 }
 
 .legend-dot {
@@ -216,11 +337,11 @@
 }
 
 .legend-visited {
-  background: #fde68a;
-  border: 2px solid #111827;
+  background: var(--step-visited);
+  border: 2px solid var(--ink);
 }
 
 .legend-current {
-  background: #f3f4f6;
-  border: 3px solid #2563eb;
+  background: var(--panel);
+  border: 3px solid var(--route);
 }

@@ -1,10 +1,10 @@
 const CONDITION_LEGEND: { label: string; colour: string; width: number; dash?: string }[] = [
-  { label: "Low traffic", colour: "#22c55e", width: 3 },
-  { label: "Medium traffic", colour: "#eab308", width: 5 },
-  { label: "High traffic", colour: "#f97316", width: 7 },
-  { label: "Severe traffic", colour: "#ef4444", width: 9 },
-  { label: "Accident (⚠)", colour: "#a855f7", width: 9 },
-  { label: "Closed", colour: "#9ca3af", width: 3, dash: "6 6" },
+  { label: "Low traffic", colour: "var(--low)", width: 3 },
+  { label: "Medium traffic", colour: "var(--medium)", width: 5 },
+  { label: "High traffic", colour: "var(--high)", width: 7 },
+  { label: "Severe traffic", colour: "var(--severe)", width: 9 },
+  { label: "Accident (⚠)", colour: "url(#accident-hatch)", width: 9 },
+  { label: "Closed (✕)", colour: "var(--closed)", width: 3, dash: "6 6" },
 ];
 
 export function Legend() {
@@ -15,6 +15,15 @@ export function Legend() {
         {CONDITION_LEGEND.map((item) => (
           <li key={item.label}>
             <svg width="40" height="14" aria-hidden="true">
+              <line
+                x1={2}
+                y1={7}
+                x2={38}
+                y2={7}
+                stroke="var(--road-casing)"
+                strokeWidth={item.width + 4}
+                strokeLinecap="round"
+              />
               <line
                 x1={2}
                 y1={7}
@@ -32,7 +41,11 @@ export function Legend() {
       </ul>
       <ul className="legend-secondary">
         <li>
-          <span className="legend-swatch legend-route" /> Current route
+          <svg width="40" height="14" aria-hidden="true">
+            <line x1={2} y1={7} x2={38} y2={7} stroke="var(--route-halo)" strokeWidth={13} strokeLinecap="round" />
+            <line x1={2} y1={7} x2={38} y2={7} stroke="var(--route)" strokeWidth={7} strokeLinecap="round" />
+          </svg>
+          Current route
         </li>
         <li>
           <span className="legend-swatch legend-blocking" /> Blocking closure
