@@ -51,6 +51,28 @@
   fill: #16a34a;
 }
 
+.location-visited {
+  fill: #fde68a;
+}
+
+.location-current {
+  stroke: #2563eb;
+  stroke-width: 4;
+}
+
+.relax-flash {
+  animation: relax-flash-pulse 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes relax-flash-pulse {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 0.7;
+  }
+}
+
 .location-label {
   font-size: 16px;
   fill: #111827;
@@ -89,11 +111,38 @@
   outline: 2px solid #2563eb;
 }
 
-.explainer-panel {
+.explainer-panel,
+.stepper-panel {
   border: 1px solid #d1d5db;
   border-radius: 8px;
   padding: 12px;
   font-size: 15px;
+}
+
+.stepper-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dist-table {
+  width: 100%;
+  margin-top: 8px;
+  font-size: 14px;
+  border-collapse: collapse;
+}
+
+.dist-table th,
+.dist-table td {
+  text-align: left;
+  padding: 2px 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.queue-list {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  font-size: 14px;
 }
 
 .route-panel {

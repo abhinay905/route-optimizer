@@ -2,6 +2,7 @@ import { LOCATIONS, ROADS } from "../data/network";
 import type { LocationId, RoadId } from "../domain/graph/types";
 import type { Action, SimulationState } from "../simulation/state";
 import { conditionStyle } from "./conditionStyle";
+import { findLatestVisit } from "./StepperPanel";
 
 interface CityMapProps {
   state: SimulationState;
@@ -13,6 +14,18 @@ const LOCATION_BY_ID = new Map(LOCATIONS.map((location) => [location.id, locatio
 export function CityMap({ state, dispatch }: CityMapProps) {
   const routeRoadIds = new Set<RoadId>(state.route?.status === "found" ? state.route.roadIds : []);
   const blockingSet = new Set(state.blockingClosures);
+
+  const stepper = state.stepper;
+  const currentStep = stepper ? stepper.steps[stepper.index] : null;
+  const visit = stepper ? findLatestVisit(stepper.steps, stepper.index) : null;
+  const visitedSet = new Set<LocationId>(visit?.visited ?? []);
+  const currentNode: LocationId | null =
+    currentStep?.type === "visit" || currentStep?.type === "skip-stale"
+      ? currentStep.node
+      : currentStep?.type === "relax"
+        ? currentStep.from
+        : null;
+  const relaxStep = currentStep?.type === "relax" ? currentStep : null;
 
   function handleLocationClick(id: LocationId) {
     if (state.source === null) {
@@ -66,6 +79,19 @@ export function CityMap({ state, dispatch }: CityMapProps) {
                 opacity={0.5}
               />
             )}
+            {relaxStep?.roadId === road.id && (
+              <line
+                x1={from.x}
+                y1={from.y}
+                x2={to.x}
+                y2={to.y}
+                stroke={relaxStep.improved ? "#22c55e" : "#9ca3af"}
+                strokeWidth={style.width + 10}
+                strokeLinecap="round"
+                opacity={0.6}
+                className="relax-flash"
+              />
+            )}
             <line
               x1={from.x}
               y1={from.y}
@@ -88,6 +114,14 @@ export function CityMap({ state, dispatch }: CityMapProps) {
       {LOCATIONS.map((location) => {
         const isSource = state.source === location.id;
         const isDestination = state.destination === location.id;
+        const isVisited = visitedSet.has(location.id);
+        const isCurrent = currentNode === location.id;
+
+        const classes = ["location-dot"];
+        if (isVisited) classes.push("location-visited");
+        if (isSource) classes.push("location-source");
+        if (isDestination) classes.push("location-destination");
+        if (isCurrent) classes.push("location-current");
 
         return (
           <g
@@ -95,14 +129,7 @@ export function CityMap({ state, dispatch }: CityMapProps) {
             onClick={() => handleLocationClick(location.id)}
             className="location"
           >
-            <circle
-              cx={location.x}
-              cy={location.y}
-              r={18}
-              className={
-                isSource ? "location-dot location-source" : isDestination ? "location-dot location-destination" : "location-dot"
-              }
-            />
+            <circle cx={location.x} cy={location.y} r={18} className={classes.join(" ")} />
             <text x={location.x} y={location.y + 32} textAnchor="middle" className="location-label">
               {location.name}
             </text>

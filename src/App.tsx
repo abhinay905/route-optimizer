@@ -6,6 +6,7 @@ import { ControlPanel } from "./ui/ControlPanel";
 import { ExplainerPanel } from "./ui/ExplainerPanel";
 import { RoadConditionPicker } from "./ui/RoadConditionPicker";
 import { RoutePanel } from "./ui/RoutePanel";
+import { StepperPanel } from "./ui/StepperPanel";
 import "./ui/styles.css";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <RoadConditionPicker state={state} dispatch={dispatch} />
         <RoutePanel state={state} />
         <ExplainerPanel state={state} />
+        <StepperPanel state={state} dispatch={dispatch} />
       </aside>
     </div>
   );

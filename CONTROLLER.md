@@ -3,8 +3,8 @@
 ## Session State  (agent: update after every step)
 ```
 SESSION_STATUS:  ACTIVE            # ACTIVE | BLOCKED | PAUSED | DONE
-CURRENT_STEP:    8 — Stepper actions + StepperPanel + map step highlights
-LAST_COMPLETED:  Step 7 — data/scenarios.ts + presets, explainRouteChange + ExplainerPanel
+CURRENT_STEP:    9 — (optional) Live mode: seeded PRNG + timer + randomTrafficTick
+LAST_COMPLETED:  Step 8 — Stepper actions + StepperPanel + map step highlights (T1-T3 complete)
 PAUSED_AT:       —
 ```
 

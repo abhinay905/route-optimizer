@@ -1,7 +1,7 @@
 import { LOCATIONS, ROADS } from "../data/network";
 import { SCENARIOS } from "../data/scenarios";
 import { buildGraph, currentWeights } from "../domain/graph/buildGraph";
-import { dijkstra } from "../domain/routing/dijkstra";
+import { dijkstra, dijkstraSteps } from "../domain/routing/dijkstra";
 import { explainRouteChange } from "../domain/routing/explainRouteChange";
 import { findBlockingClosures } from "../domain/routing/reachability";
 import type { Action, SimulationState } from "./state";
@@ -69,11 +69,23 @@ export function simulationReducer(state: SimulationState, action: Action): Simul
     }
     case "reset":
       return initialState;
-    case "startStepper":
-    case "stepNext":
-    case "stepPrev":
+    case "startStepper": {
+      if (!state.source || !state.destination) return state;
+      const graph = buildGraph(LOCATIONS, ROADS, state.conditions);
+      const steps = Array.from(dijkstraSteps(graph, state.source, state.destination));
+      return { ...state, stepper: { steps, index: 0 } };
+    }
+    case "stepNext": {
+      if (!state.stepper) return state;
+      const index = Math.min(state.stepper.index + 1, state.stepper.steps.length - 1);
+      return { ...state, stepper: { ...state.stepper, index } };
+    }
+    case "stepPrev": {
+      if (!state.stepper) return state;
+      const index = Math.max(state.stepper.index - 1, 0);
+      return { ...state, stepper: { ...state.stepper, index } };
+    }
     case "exitStepper":
-      // implemented in Step 8 (StepperPanel)
-      return state;
+      return { ...state, stepper: null };
   }
 }
